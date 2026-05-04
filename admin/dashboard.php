@@ -10,7 +10,8 @@ session_start();
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <h1>Admin Dashboard</h1>
+
+<h1>Admin Dashboard</h1>
 <p>Welcome, Admin</p>
 
 <div class="container">
@@ -19,18 +20,17 @@ session_start();
         <h2>Reports</h2>
 
         <table>
-            <tr> // Report Management 
+            <tr>
                 <th>Problem</th>
                 <th>Location</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
 
-          
             <tr>
-                <td>No data yet</td>  // Problem Column
-                <td>No data yet</td>  // Location Column
-                <td><span class="status pending">Pending</span></td>   // Status Tracking System 
+                <td>No data yet</td>
+                <td>No data yet</td>
+                <td><span class="status pending">Pending</span></td>
                 <td><button>Update</button></td>
             </tr>
 
@@ -39,12 +39,6 @@ session_start();
 
 </div>
 
-
-<h1>Admin Dashboard</h1>
-<p>Welcome, Admin</p>
-
-
-    
-
 </body>
 </html>
+
