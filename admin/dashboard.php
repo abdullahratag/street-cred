@@ -1,44 +1,61 @@
 <?php
 session_start();
-// TODO: Add admin role check later
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Admin Dashboard - Street Cred</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../SteetCred/style.css">
 </head>
 <body>
 
-<h1>Admin Dashboard</h1>
-<p>Welcome, Admin</p>
+<div class="admin-dashboard">
 
-<div class="container">
+    <header class="admin-header">
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+            <p>Manage submitted infrastructure reports</p>
+        </div>
+    </header>
 
-    <div class="card">
-        <h2>Reports</h2>
+    <section class="admin-content">
+        <div class="container">
 
-        <table>
-            <tr>
-                <th>Problem</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
+            <div class="card">
+                <h2>Reports</h2>
 
-            <tr>
-                <td>No data yet</td>
-                <td>No data yet</td>
-                <td><span class="status pending">Pending</span></td>
-                <td><button>Update</button></td>
-            </tr>
+                <table>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
 
-        </table>
-    </div>
+                    <tr>
+                        <td>No data yet</td>
+                        <td>No data yet</td>
+                        <td>
+                            <span class="status-badge submitted">
+                                Submitted
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn-primary">
+                                Update
+                            </button>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+    </section>
 
 </div>
 
 </body>
 </html>
-
