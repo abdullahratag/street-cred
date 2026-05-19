@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+include("../database/database.php");
 /*
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
@@ -45,8 +47,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                 </div>
 
                 <nav>
-                    <a href="../index.php" class="btn-nav">Home</a>
-                    <a href="../user/dashboard.php" class="btn-nav">Dashboard</a>
+                    <a href="../home-page/homepage.php" class="btn-nav">Home</a>
                     <a href="submit.php" class="btn-nav active">Submit Report</a>
                     <a href="../user/profile.php" class="btn-nav">Profile</a>
                 </nav>
