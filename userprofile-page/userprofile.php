@@ -49,7 +49,7 @@ $recent_reports = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - Barangay System</title>
+    <title>My Profile - Street Cred</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="userprofile.css">
 </head>
@@ -61,7 +61,7 @@ $recent_reports = [
                 <a href="../index.php" class="logo">
                     <div class="logo-icon">🏛️</div>
                     <div>
-                        <span class="brand">Barangay Portal</span>
+                        <span class="brand">Street Cred</span>
                         <span class="subtext">Zamboanga City</span>
                     </div>
                 </a>
