@@ -270,12 +270,8 @@ $admin_name = "MARC LAURENCE";
         </div>
 
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item active"><i class="fas fa-home"></i> <span>Local Overview</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-map-marker-alt"></i> <span>Barangay Reports</span></a>
+            <a href="#" class="nav-item"><i class="fas fa-map-marker-alt"></i> <span>Reports</span></a>
             <a href="#" class="nav-item"><i class="fas fa-history"></i> <span>Resolution Logs</span></a>
-            
-            <div class="admin-divider">CITY LEVEL</div>
-            <a href="#" class="nav-item"><i class="fas fa-globe-asia"></i> <span>City-Wide Stats</span></a>
         </nav>
     </aside>
 
