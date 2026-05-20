@@ -72,9 +72,9 @@ $recent_reports = [
                 </div>
 
                 <nav>
-                    <a href="../index.php" class="btn-nav">Home</a>
-                    <a href="dashboard.php" class="btn-nav">Dashboard</a>
-                    <a href="profile.php" class="btn-nav active">Profile</a>
+                    <a href="../home-page/homepage.php" class="btn-nav">Home</a>
+                    <a href="../admin-pages/" class="btn-nav">Dashboard</a>
+                    <a href="#" class="btn-nav active">Profile</a>
                 </nav>
 
                 <div class="user-profile">

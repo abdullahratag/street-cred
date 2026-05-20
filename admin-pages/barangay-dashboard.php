@@ -3,8 +3,15 @@ session_start();
 
 include("../database/database.php");
 
-$barangay_name = "Tetuan"; 
-$admin_name = "MARC LAURENCE";
+
+if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] !== 'barangay_admin' && $_SESSION['user_role'] !== 'lgu_admin')) {
+    $barangay_name = "Pitipiwpiw"; 
+    $admin_name = "Demo Name";
+}
+else{
+$barangay_name = $_SESSION['user_barangay']; 
+$admin_name = $_SESSION['first_name'];
+}
 
 /** @var mysqli $conn */ 
 
@@ -406,9 +413,9 @@ $total_resolved = mysqli_num_rows($run_resolved);
                 <div class="user-badge">
                     <i class="fas fa-user-circle"></i>
                     <span>Official: <strong><?php echo $admin_name; ?></strong></span>
-                    <a href="" class="btn-logout">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
+                    <button name = "logout-btn" class="btn-logout" onclick="logout()">
+                        <i class="fas fa-sign-out-alt">Logout</i> 
+                    </button>
                 </div>
             </div>
         </header>
@@ -628,4 +635,7 @@ $total_resolved = mysqli_num_rows($run_resolved);
 </div>
 
 </body>
+
+<script src="../scripts/script.js"></script>
+
 </html>

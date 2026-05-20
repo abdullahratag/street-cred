@@ -28,6 +28,30 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="submit.css">
 </head>
+
+<style>
+    .btn-logout {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease-in-out;
+            background: #f1f5f9;
+        }
+
+        .btn-logout:hover {
+            color: var(--danger);
+            background: #fef2f2;
+            border-color: #fee2e2;
+        }
+
+</style>
 <body>
     <!-- Header -->
     <header>
@@ -56,6 +80,10 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                     <strong><?php echo $user_name; ?></strong><br>
                     <small><?php echo $user_barangay; ?></small>
                 </div>
+
+                <a href="logout.php" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                </a>
             </div>
         </div>
     </header>
