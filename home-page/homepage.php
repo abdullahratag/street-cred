@@ -25,67 +25,67 @@ $user_role = isset($_SESSION['user_role']) ? strtolower($_SESSION['user_role']) 
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <div class="nav-wrapper">
-                <a href="../index.php" class="logo" style="text-decoration: none; color: inherit;">
-                    <div class="logo-icon">🏛️</div>
-                    <div>
-                        <span class="brand">Street Cred</span>
-                        <span class="subtext">Zamboanga City</span>
+        <header>
+            <div class="container">
+                <div class="nav-wrapper">
+                    
+                    <a href="../index.php" class="logo" style="text-decoration: none; color: inherit;">
+                        <div class="logo-icon">🏛️</div>
+                        <div>
+                            <span class="brand">Street Cred</span>
+                            <span class="subtext">Zamboanga City</span>
+                        </div>
+                    </a>
+
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search reports, documents...">
                     </div>
-                </a>
 
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search reports, documents...">
-                </div>
+                    <nav>
+                        <a href="#" class="btn-nav active">Home</a>
+                        <a href="#features" class="btn-nav">Features</a>
+                        <a href="#recent-reports" class="btn-nav">Recent Report</a>
+                        <a href="#contact-section" class="btn-nav">Contact</a>
 
-                <nav>
-                    <a href="#" class="btn-nav active">Home</a>
-                    <a href="#features" class="btn-nav ">Features</a>
-                    <a href="#recent-reports" class="btn-nav ">Recent Report</a>
-                    <a href="#contact-section" class="btn-nav ">Contact</a>
+                        <?php if ($user_role === 'citizen' || $user_role === 'civilian'): ?>
+                            <a href="../submit-page/submit.php" class="btn-nav">Submit Report</a>
+                            <a href="../userprofile-page/userprofile.php" class="btn-nav">Profile</a>
+                        <?php endif; ?>
 
+                        <?php if ($user_role === 'barangay_admin'): ?>
+                            <a href="../admin-pages/barangay-dashboard.php" class="btn-nav">
+                                <i class="fas fa-chart-pie"></i> Brgy Dashboard
+                            </a>
+                        <?php elseif ($user_role === 'lgu_admin'): ?>
+                            <a href="../lgu-dashboard/dashboard.php" class="btn-nav">
+                                <i class="fas fa-city"></i> LGU Dashboard
+                            </a>
+                        <?php endif; ?> 
 
-                    <?php if ($user_role === 'citizen'): ?>
-                        <a href="../submit-page/submit.php" class="btn-nav">Submit Report</a>
-                        <a href="../userprofile-page/userprofile.php" class="btn-nav">Profile</a>
+                        <?php if (!isset($_SESSION['user_role'])): ?>
+                            <a href="../login-page/LoginPage.php" class="btn-nav">
+                                <i class="fas fa-sign-out-alt"></i> Log In
+                            </a>
+                        <?php endif; ?> 
+                    </nav>
+
+                    <?php if (isset($_SESSION['user_role'])): ?>
+                        <div class="user-profile">
+                            <strong><?php echo htmlspecialchars($display_name); ?></strong><br>
+                            <small>Barangay <?php echo htmlspecialchars($display_barangay); ?></small>
+                        </div>
                     <?php endif; ?>
 
-                    <?php if ($user_role === 'barangay_admin'): ?>
-                        <a href="../admin-pages/barangay-dashboard.php" class="btn-nav">
-                            <i class="fas fa-chart-pie"></i> Brgy Dashboard
-                        </a>
-                    <?php elseif ($user_role === 'lgu_admin'): ?>
-                        <a href="../lgu-dashboard/dashboard.php" class="btn-nav">
-                            <i class="fas fa-city"></i> LGU Dashboard
-                        </a>
-                    <?php endif; ?> 
+                    <?php if (isset($_SESSION['user_role'])): ?>        
+                        <button onclick="logout()" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                        </button>
+                    <?php endif; ?>
 
-                    
-                     <?php if (!isset($_SESSION['user_role'])): ?>
-                    <a href="../login-page/LoginPage.php" class="btn-nav">
-                        <i class="fas fa-sign-out-alt">Log In</i> 
-                    </a>
-                    <?php endif; ?> 
-                </nav>
-
-                <?php if (isset($_SESSION['user_role'])): ?>
-                <div class="user-profile">
-                    <strong><?php echo htmlspecialchars($display_name); ?></strong><br>
-                    <small>Barangay <?php echo htmlspecialchars($display_barangay); ?></small>
                 </div>
-                <?php endif; ?>
-
-                <?php if (isset($_SESSION['user_role'])): ?>        
-                <button onclick="logout()" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
-                </button>
-                <?php endif; ?>
             </div>
-        </div>
-    </header>
+        </header>
 
     <section class="hero">
         <div class="container hero-grid">

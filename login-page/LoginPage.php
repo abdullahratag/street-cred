@@ -29,6 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['last_name']     = $user['last_name'];
             $_SESSION['user_role']     = $user['role'];
             $_SESSION['user_barangay'] = $user['barangay']; 
+            $_SESSION['user_email'] = $user['email']; 
+            $_SESSION['membersince'] = date("M d, Y g:i A", strtotime($user['created_at']));
             
             // Send logged-in user to landing homepage
             header("Location: ../home-page/homepage.php");

@@ -53,3 +53,53 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = input.parentElement.querySelector('.toggle-password i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.classList.remove('fa-eye');
+                button.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                button.classList.remove('fa-eye-slash');
+                button.classList.add('fa-eye');
+            }
+        }
+
+        document.getElementById('edit-profile-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const successMsg = document.getElementById('profile-success');
+            successMsg.style.display = 'block';
+            setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
+        });
+
+        document.getElementById('change-password-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newPassword = document.getElementById('new_password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const errorMsg = document.getElementById('password-error');
+            const errorText = document.getElementById('password-error-message');
+            const successMsg = document.getElementById('password-success');
+            
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            if (newPassword !== confirmPassword) {
+                errorText.textContent = 'New passwords do not match!';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            successMsg.style.display = 'block';
+            this.reset();
+            setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
+        });
+
+        function confirmDelete() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                alert('Account deletion feature will be implemented with database logic.');
+            }
+        }
+

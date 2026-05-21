@@ -834,3 +834,111 @@ nav {
     padding: 16px;
   }
 }
+
+/* Container Layout Restructuring */
+.profile-main-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+/* Row 1: Insights & Stats Layout */
+.top-row-insights {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 992px) {
+    .top-row-insights {
+        grid-template-columns: 1.2fr 0.8fr; /* Gives stats slightly more workspace room */
+    }
+}
+
+/* Fix Stat Box Color Accents (matching Rejected box fix to Resolved) */
+.stat-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+.stat-lgu .stat-icon { color: #f59e0b; background: #fef3c7; padding: 10px; border-radius: 8px; }
+.stat-resolved .stat-icon { color: #10b981; background: #d1fae5; padding: 10px; border-radius: 8px; }
+
+/* Row 2: Form Split Side-by-Side */
+.middle-row-forms {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 768px) {
+    .middle-row-forms {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Row 3: Account Actions Alignment Block at Bottom */
+.bottom-row-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 15px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 35px;
+}
+
+.centered-action-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Modern Action UI Buttons styling */
+.btn-action-panel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    min-width: 220px;
+    border: 1px solid transparent;
+}
+
+.btn-logout-action {
+    background-color: #f1f5f9;
+    color: #334155;
+    border-color: #cbd5e1;
+}
+
+.btn-logout-action:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.btn-delete-action {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border-color: #fca5a5;
+}
+
+.btn-delete-action:hover {
+    background-color: #fee2e2;
+    color: #991b1b;
+    box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.1);
+}

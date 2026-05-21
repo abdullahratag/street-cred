@@ -4,8 +4,8 @@ session_start();
 // FIX: Fixed include path to correctly escape admin-pages folder layout
 include("../database/database.php");
 
-$barangay_name = "Tetuan"; 
-$admin_name = "MARC LAURENCE";
+$barangay_name = $_SESSION['user_barangay']; 
+$admin_name = $_SESSION['first_name']; 
 
 /** @var mysqli $conn */ 
 // --- START FILTERING LOGIC ---
