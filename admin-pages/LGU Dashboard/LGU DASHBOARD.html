@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LGU Monitoring Dashboard</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+
+  <div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <i class="fas fa-city"></i>
+      <span>LGU Portal</span>
+    </div>
+
+    <nav class="menu">
+      <a class="active" href="#"><i class="fas fa-chart-line"></i><span>Dashboard</span></a>
+      <a href="#"><i class="fas fa-folder-open"></i><span>Reports</span></a>
+      <a href="#"><i class="fas fa-check-circle"></i><span>Resolved</span></a>
+      <a href="#"><i class="fas fa-users"></i><span>Users</span></a>
+      <a href="#"><i class="fas fa-gear"></i><span>Settings</span></a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HEADER -->
+    <header class="hero-header">
+      <div class="glass-title">
+        <h1>LGU MONITORING DASHBOARD</h1>
+        <p>Real-Time Infrastructure Report Tracking System</p>
+      </div>
+
+      <div class="admin-card">
+        <i class="fas fa-user-circle"></i>
+        <div>
+          <h4>Admin Panel</h4>
+          <small>LGU Officer</small>
+        </div>
+      </div>
+    </header>
+
+    <!-- CARDS -->
+    <section class="cards">
+
+      <div class="card blue">
+        <div class="icon"><i class="fas fa-bell"></i></div>
+        <div>
+          <h3>New Reports</h3>
+          <h2>12</h2>
+          <p>Awaiting response</p>
+        </div>
+      </div>
+
+      <div class="card yellow">
+        <div class="icon"><i class="fas fa-spinner"></i></div>
+        <div>
+          <h3>In Progress</h3>
+          <h2>8</h2>
+          <p>Currently handled</p>
+        </div>
+      </div>
+
+      <div class="card green">
+        <div class="icon"><i class="fas fa-check"></i></div>
+        <div>
+          <h3>Resolved</h3>
+          <h2>25</h2>
+          <p>Completed cases</p>
+        </div>
+      </div>
+
+    </section>
+
+
+    <section class="table-box">
+      <div class="table-header">
+        <h2>Recent Reports</h2>
+        <div class="search">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search reports...">
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#101</td>
+            <td>Road</td>
+            <td>Pothole near highway</td>
+            <td><span class="badge pending">Pending</span></td>
+            <td><button>Update</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
