@@ -1,4 +1,5 @@
 <?php
+// 1. ALL CORE PROCESSES & CONFIGURATIONS AT THE VERY TOP
 session_start();
 
 include("../database/database.php");
@@ -13,51 +14,34 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] !== 'barangay_admin'
 
 /** @var mysqli $conn */ 
 
-// --- START STATUS UPDATE ACTION HANDLER ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_update_status'])) {
-    $report_id = intval($_POST['report_id']);
-    $target_status = mysqli_real_escape_string($conn, $_POST['target_status']);
+// 2. RESTRUCTURED & CLEAN ACTION HANDLER (RUNS BEFORE ANY HTML OUTPUTS)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    // Process update query securely 
-    $update_sql = "UPDATE reports SET status = '$target_status' WHERE ID = $report_id AND barangay = '$barangay_name'";
-    mysqli_query($conn, $update_sql);
-    
-    // Refresh to prevent form duplicate submissions on page reload
-    header("Location: " . $_SERVER['PHP_SELF'] . (isset($_GET['category']) ? "?category=" . urlencode($_GET['category']) : ""));
-    
-    // IF SENDING TO LGU / CHANGING STATUS
+    // CASE 1: SENDING TO LGU / CHANGING STATUS
     if (isset($_POST['action_update_status'])) {
         $report_id = intval($_POST['report_id']);
         $target_status = mysqli_real_escape_string($conn, $_POST['target_status']);
         
-        // Process update query securely 
         $update_sql = "UPDATE reports SET status = '$target_status' WHERE ID = $report_id AND barangay = '$barangay_name'";
         mysqli_query($conn, $update_sql);
         
-        // Refresh to prevent form duplicate submissions on page reload
         header("Location: " . $_SERVER['PHP_SELF'] . (isset($_GET['category']) ? "?category=" . urlencode($_GET['category']) : ""));
         exit();
     }
     
-    // CASE 2: IF CANCELING AND DELETING THE TICKET COMPLETELY
+    // CASE 2: FIX - INDEPENDENT LOGIC OUTSIDE OF UPDATE STATUS BLOCK
     if (isset($_POST['action_delete_report'])) {
         $report_id = intval($_POST['report_id']);
         
-        // Securely delete from your local community scope jurisdiction
         $delete_sql = "DELETE FROM reports WHERE ID = $report_id AND barangay = '$barangay_name'";
         mysqli_query($conn, $delete_sql);
         
-        // Redirect back to dashboard (removes the ?review_id from the URL cleanly)
         header("Location: " . $_SERVER['PHP_SELF'] . (isset($_GET['category']) ? "?category=" . urlencode($_GET['category']) : ""));
         exit();
     }
-    
-    exit();
 }
-// --- END STATUS UPDATE ACTION HANDLER ---
 
-
-// --- START FILTERING LOGIC ---
+// 3. FILTERING LOGIC
 $selected_category = isset($_GET['category']) ? $_GET['category'] : 'All Categories';
 $category_filter_sql = "";
 
@@ -65,28 +49,21 @@ if ($selected_category !== 'All Categories') {
     $safe_category = mysqli_real_escape_string($conn, $selected_category);
     $category_filter_sql = " AND category = '$safe_category'";
 }
-// --- END FILTERING LOGIC ---
 
-
-// --- DATA EXTRACTION: PIPELINE QUEUES ---
-
-// Pipeline 1: New Reports (Standby only)
+// 4. DATA EXTRACTION QUEUES
 $sql_standby = "SELECT * FROM reports WHERE barangay = '$barangay_name' AND status = 'standby' $category_filter_sql ORDER BY date_submitted DESC";
 $run_standby = mysqli_query($conn, $sql_standby);
 $total_standby = mysqli_num_rows($run_standby);
 
-// Pipeline 2: Active Reports Queue (In progress, Reported to LGU)
 $sql_active = "SELECT * FROM reports WHERE barangay = '$barangay_name' AND status IN ('In progress', 'Reported to LGU') $category_filter_sql ORDER BY date_submitted DESC";
 $run_active = mysqli_query($conn, $sql_active);
 $total_active = mysqli_num_rows($run_active);
 
-// Pipeline 3: Resolved Reports Archetype
 $sql_resolved = "SELECT * FROM reports WHERE barangay = '$barangay_name' AND status = 'Resolved' $category_filter_sql ORDER BY date_submitted DESC";
 $run_resolved = mysqli_query($conn, $sql_resolved);
 $total_resolved = mysqli_num_rows($run_resolved);
 
-
-// --- DETAILED ENTRY LOOKUP (FOR REVIEW MODE) ---
+// 5. ENTRY LOOKUP (FOR REVIEW MODE)
 $review_mode = false;
 $review_report = null;
 $user = null;
@@ -94,7 +71,6 @@ $user = null;
 if (isset($_GET['review_id'])) {
     $review_id = intval($_GET['review_id']);
     
-    // 1. Get the report first
     $sql_review = "SELECT * FROM reports WHERE ID = $review_id AND barangay = '$barangay_name' LIMIT 1";
     $run_review = mysqli_query($conn, $sql_review);
 
@@ -102,23 +78,19 @@ if (isset($_GET['review_id'])) {
         $review_mode = true;
         $review_report = mysqli_fetch_assoc($run_review);
         
-        // 2. Now check if the report has a user_id linked to it
         if (!empty($review_report['user_id'])) {
-            $reporter_id = intval($review_report['user_id']); // Safe integer conversion
+            $reporter_id = intval($review_report['user_id']);
             
-            // 3. Query the users table using the actual reporter's ID
             $sql_get_user = "SELECT * FROM users WHERE ID = $reporter_id LIMIT 1";
             $run_get_user = mysqli_query($conn, $sql_get_user);
             
             if (mysqli_num_rows($run_get_user) > 0) {
-                // 4. Fetch from the CORRECT result pointer ($run_get_user)
                 $user = mysqli_fetch_assoc($run_get_user);
             }
         }
     }
 }
 
-// Generate link persistent strings for smooth routing transitions
 $category_query_param = (isset($_GET['category'])) ? "&category=" . urlencode($_GET['category']) : "";
 $back_to_dashboard_url = $_SERVER['PHP_SELF'] . (isset($_GET['category']) ? "?category=" . urlencode($_GET['category']) : "");
 ?>
@@ -682,10 +654,9 @@ $back_to_dashboard_url = $_SERVER['PHP_SELF'] . (isset($_GET['category']) ? "?ca
                 </div>
 
                 <div class="review-action-footer">
-
                     <form method="POST" onsubmit="return confirm('Are you absolutely sure you want to cancel and permanently delete this report? This cannot be undone.');" style="display: inline-block;">
                         <input type="hidden" name="report_id" value="<?php echo $review_report['ID']; ?>">
-                        <button type="submit" name="action_delete_report" class="btn-cancel" style="background: var(--danger); color: white; border: none;">
+                        <button type="submit" name="action_delete_report" class="btn-cancel" style="background: var(--danger); color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">
                             <i class="fas fa-trash-alt" style="margin-right: 6px;"></i> Cancel & Delete Report
                         </button>
                     </form>
@@ -699,7 +670,7 @@ $back_to_dashboard_url = $_SERVER['PHP_SELF'] . (isset($_GET['category']) ? "?ca
                     </form>
                 </div>
             </div>
-            <?php else: ?>
+        <?php else: ?>
             
             <div class="table-container" style="border-top: 4px solid #cbd5e1;">
                 <div class="table-header-actions">
@@ -878,7 +849,6 @@ $back_to_dashboard_url = $_SERVER['PHP_SELF'] . (isset($_GET['category']) ? "?ca
 
     </main>
 </div>
-
 </body>
 <script src="../scripts/script.js"></script>
 </html>

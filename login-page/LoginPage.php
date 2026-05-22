@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_barangay'] = $user['barangay']; 
             $_SESSION['user_email'] = $user['email']; 
             $_SESSION['membersince'] = date("M d, Y g:i A", strtotime($user['created_at']));
+            $_SESSION['lgu_department'] = $user['lgu_department'];
             
             // Send logged-in user to landing homepage
             header("Location: ../home-page/homepage.php");
@@ -99,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <div class="register-text">
-            Not yet registered? <a href="#">Register now</a>
+            Not yet registered? <a href="../registration-page/registration.php">Register now</a>
         </div>
 
         <div class="footer-text">

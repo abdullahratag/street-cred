@@ -43,14 +43,16 @@ $user_role = isset($_SESSION['user_role']) ? strtolower($_SESSION['user_role']) 
                     </div>
 
                     <nav>
-                        <a href="#" class="btn-nav active">Home</a>
+                        <a href="#home" class="btn-nav active">Home</a>
                         <a href="#features" class="btn-nav">Features</a>
                         <a href="#recent-reports" class="btn-nav">Recent Report</a>
                         <a href="#contact-section" class="btn-nav">Contact</a>
 
-                        <?php if ($user_role === 'citizen' || $user_role === 'civilian'): ?>
-                            <a href="../submit-page/submit.php" class="btn-nav">Submit Report</a>
-                            <a href="../userprofile-page/userprofile.php" class="btn-nav">Profile</a>
+                        <?php if (isset($_SESSION['user_role'])): ?>
+                            <?php if ($user_role === 'citizen' || $user_role === 'civilian'): ?>
+                                <a href="../submit-page/submit.php" class="btn-nav">Submit Report</a>
+                                <a href="../userprofile-page/userprofile.php" class="btn-nav">Profile</a>
+                            <?php endif; ?>
                         <?php endif; ?>
 
                         <?php if ($user_role === 'barangay_admin'): ?>
@@ -58,7 +60,7 @@ $user_role = isset($_SESSION['user_role']) ? strtolower($_SESSION['user_role']) 
                                 <i class="fas fa-chart-pie"></i> Brgy Dashboard
                             </a>
                         <?php elseif ($user_role === 'lgu_admin'): ?>
-                            <a href="../lgu-dashboard/dashboard.php" class="btn-nav">
+                            <a href="../admin-pages/LGU_DASHBOARD.php" class="btn-nav">
                                 <i class="fas fa-city"></i> LGU Dashboard
                             </a>
                         <?php endif; ?> 
@@ -87,7 +89,7 @@ $user_role = isset($_SESSION['user_role']) ? strtolower($_SESSION['user_role']) 
             </div>
         </header>
 
-    <section class="hero">
+    <section class="hero" id = "home" >
         <div class="container hero-grid">
             <div class="hero-content">
                 <p class="overline">DIGITAL CIVIC REPORTING</p>
