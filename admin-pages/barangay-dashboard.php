@@ -2,7 +2,7 @@
 // 1. ALL CORE PROCESSES & CONFIGURATIONS AT THE VERY TOP
 session_start();
 
-include("../database/database.php");
+include(dirname(__DIR__) . "/database/database.php");
 
 if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] !== 'barangay_admin' && $_SESSION['user_role'] !== 'lgu_admin')) {
     $barangay_name = "Pitipiwpiw"; 

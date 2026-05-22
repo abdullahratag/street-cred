@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include('../database/database.php');
+include(dirname(__DIR__) . "/database/database.php");
 
 $user_ID = $_SESSION['user_id'];
 $name = $_SESSION['first_name'];

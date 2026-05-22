@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../database/database.php");
+include(dirname(__DIR__) . "/database/database.php");
 
 $success_message = "";
 $error_message = "";
@@ -191,14 +191,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label class="role-label"><i class="fas fa-briefcase"></i> Assigned LGU Department Specialty</label>
                 <select name="lgu_department" id="lgu_department" class="form-dropdown">
                     <option value="">Select department assignment</option>
-                    <option value="Drainage Issues" <?php if($lgu_department == 'Drainage Issues') echo 'selected'; ?>>Drainage Issues</option>
-                    <option value="Waste Management" <?php if($lgu_department == 'Waste Management') echo 'selected'; ?>>Waste Management</option>
-                    <option value="Road/Pothole" <?php if($lgu_department == 'Road/Pothole') echo 'selected'; ?>>Road / Pothole Maintenance</option>
-                    <option value="Streetlight" <?php if($lgu_department == 'Streetlight') echo 'selected'; ?>>Streetlight / Electrical Maintenance</option>
-                    <option value="Traffic Concern" <?php if($lgu_department == 'Traffic Concern') echo 'selected'; ?>>Traffic Management Group</option>
-                    <option value="Security Issue" <?php if($lgu_department == 'Security Issue') echo 'selected'; ?>>Barangay Peacekeeping / Security</option>
-                    <option value="Infrastructure" <?php if($lgu_department == 'Infrastructure') echo 'selected'; ?>>City Engineering / Infrastructure</option>
-                    <option value="other" <?php if($lgu_department == 'other') echo 'selected'; ?>>Other Local Governance Dept.</option>
+                    
+                    <option value="City Engineering Office" <?php if($lgu_department == 'City Engineering Office') echo 'selected'; ?>>
+                        City Engineering Office (Drainage, Roads & Infra)
+                    </option>
+                    
+                    <option value="City Environment & Natural Resources Office" <?php if($lgu_department == 'City Environment & Natural Resources Office') echo 'selected'; ?>>
+                        City Environment & Natural Resources Office (Waste Management)
+                    </option>
+                    
+                    <option value="City General Services Office" <?php if($lgu_department == 'City General Services Office') echo 'selected'; ?>>
+                        City General Services Office (Streetlights & Utilities)
+                    </option>
+                    
+                    <option value="City Traffic Operations Management" <?php if($lgu_department == 'City Traffic Operations Management') echo 'selected'; ?>>
+                        City Traffic Operations Management (Traffic Concerns)
+                    </option>
+                    
+                    <option value="Public Order and Safety Office" <?php if($lgu_department == 'Public Order and Safety Office') echo 'selected'; ?>>
+                        Public Order and Safety Office (Local Security Issues)
+                    </option>
+                    
+                    <option value="Other Local Governance Dept." <?php if($lgu_department == 'Other Local Governance Dept.') echo 'selected'; ?>>
+                        Other Local Governance Dept.
+                    </option>
                 </select>
             </div>
 

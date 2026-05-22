@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("../database/database.php");
+include(dirname(__DIR__) . "/database/database.php");
 
 // Fetch active identity variables from session tracking
 $user_name = ($_SESSION['first_name'] ?? 'Admin') . ' ' . ($_SESSION['last_name'] ?? '');

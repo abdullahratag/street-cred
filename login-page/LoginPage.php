@@ -1,7 +1,7 @@
 <?php
 session_start(); 
 
-include("../database/database.php");
+include(dirname(__DIR__) . "/database/database.php");
 
 /** @var mysqli $conn */ 
 

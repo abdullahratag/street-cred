@@ -2,7 +2,7 @@
 session_start();
 
 // FIX: Fixed include path to correctly escape admin-pages folder layout
-include("../database/database.php");
+include(dirname(__DIR__) . "/database/database.php");
 
 $barangay_name = $_SESSION['user_barangay']; 
 $admin_name = $_SESSION['first_name']; 

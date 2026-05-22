@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include("../database/database.php");
+include(dirname(__DIR__) . "/database/database.php");
 
 // Set up fallbacks for display data if a session isn't running yet
 $display_name = isset($_SESSION['first_name']) ? $_SESSION['first_name'] : "Tester!";

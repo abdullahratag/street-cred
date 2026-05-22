@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("../database/database.php"); // Uses your working $conn MySQLi object
+include(dirname(__DIR__) . "/database/database.php");
 
 $user_ID = $_SESSION['user_id'];
 $user_name = $_SESSION['first_name'];
