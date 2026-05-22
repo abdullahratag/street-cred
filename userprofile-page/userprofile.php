@@ -11,46 +11,38 @@ $email = $_SESSION['user_email'];
 $barangay = $_SESSION['user_barangay'];
 $member_since = $_SESSION['membersince'];
 
-$sql_all_reports = "SELECT * FROM reports WHERE barangay = '$barangay' AND user_id = $user_ID";
-$run_standby = mysqli_query($conn, $sql_all_reports);
-$total_reports = mysqli_num_rows($run_standby);
+// Status counters
+// 1. Total Reports (Fixed: Removed barangay filter so it counts ALL user reports)
+$sql_all_reports = "SELECT * FROM reports WHERE user_id = $user_ID";
+$run_all = mysqli_query($conn, $sql_all_reports);
+$total_reports = mysqli_num_rows($run_all);
 
-$sql_standby = "SELECT * FROM reports WHERE barangay ='$barangay' AND status = 'standby' AND user_id = $user_ID";
+// 2. Standby Reports (Fixed: Renamed variable to avoid conflicts)
+$sql_standby = "SELECT * FROM reports WHERE status = 'standby' AND user_id = $user_ID";
 $run_standby = mysqli_query($conn, $sql_standby);
 $total_standby = mysqli_num_rows($run_standby);
 
-$query_reported_to_lgu = "SELECT * FROM reports WHERE barangay = '$barangay' AND status = 'Reported to LGU' AND user_id = $user_ID";
+$query_reported_to_lgu = "SELECT * FROM reports WHERE status = 'Reported to LGU' AND user_id = $user_ID";
 $result = mysqli_query($conn, $query_reported_to_lgu);
 $total_reported_to_lgu = mysqli_num_rows($result);
 
-$query_resolved = "SELECT * FROM reports WHERE barangay = '$barangay' AND status = 'Resolved' AND user_id = $user_ID";
+$query_resolved = "SELECT * FROM reports WHERE status = 'Resolved' AND user_id = $user_ID";
 $result = mysqli_query($conn, $query_resolved);
 $total_resolved = mysqli_num_rows($result);
 
-// Dummy recent reports
-$recent_reports = [
-    [
-        'id' => '#REP-001',
-        'title' => 'Broken Streetlight',
-        'category' => 'Infrastructure',
-        'status' => 'resolved',
-        'date' => '2024-01-15'
-    ],
-    [
-        'id' => '#REP-002',
-        'title' => 'Garbage Collection Issue',
-        'category' => 'Sanitation',
-        'status' => 'pending',
-        'date' => '2024-01-18'
-    ],
-    [
-        'id' => '#REP-003',
-        'title' => 'Road Repair Needed',
-        'category' => 'Infrastructure',
-        'status' => 'in-progress',
-        'date' => '2024-01-20'
-    ]
-];
+// ✨ FIX: Pulling the actual 3 most recent reports from the database for this specific user
+$query_recent = "SELECT * FROM reports 
+                 WHERE user_id = $user_ID 
+                 ORDER BY ID DESC 
+                 LIMIT 3";
+$result_recent = mysqli_query($conn, $query_recent);
+
+$recent_reports = [];
+if ($result_recent) {
+    while ($row = mysqli_fetch_assoc($result_recent)) {
+        $recent_reports[] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +74,7 @@ $recent_reports = [
 
                 <nav>
                     <a href="../home-page/homepage.php" class="btn-nav">Home</a>
-                    <a href="../admin-pages/" class="btn-nav">Dashboard</a>
+                    <a href="../submit-page/submit.php" class="btn-nav">Submit Report</a>
                     <a href="#" class="btn-nav active">Profile</a>
                 </nav>
 
@@ -170,8 +162,8 @@ $recent_reports = [
                         <div class="recent-report-item">
                             <div class="report-item-header">
                                 <div>
-                                    <h4><?php echo htmlspecialchars($report['title']); ?></h4>
-                                    <span class="report-id"><?php echo htmlspecialchars($report['id']); ?></span>
+                                    <h4><?php echo htmlspecialchars($report['category']); ?></h4>
+                                    <span class="report-id"><?php echo htmlspecialchars($report['description']); ?></span>
                                 </div>
                                 <span class="status-badge <?php echo htmlspecialchars($report['status']); ?>">
                                     <?php echo ucfirst(str_replace('-', ' ', $report['status'])); ?>
@@ -179,10 +171,10 @@ $recent_reports = [
                             </div>
                             <div class="report-item-meta">
                                 <span class="report-category">
-                                    <i class="fas fa-tag"></i> <?php echo htmlspecialchars($report['category']); ?>
+                                    <i class="fas fa-tag"></i> <?php echo htmlspecialchars($report['barangay']); ?>
                                 </span>
                                 <span class="report-date">
-                                    <i class="fas fa-calendar"></i> <?php echo date('M d, Y', strtotime($report['date'])); ?>
+                                    <i class="fas fa-calendar"></i> <?php echo date('M d, Y', strtotime($report['created_at'])); ?>
                                 </span>
                             </div>
                         </div>

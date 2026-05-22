@@ -149,7 +149,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                 <nav>
                     <a href="../home-page/homepage.php" class="btn-nav">Home</a>
                     <a href="submit.php" class="btn-nav active">Submit Report</a>
-                    <a href="../user/profile.php" class="btn-nav">Profile</a>
+                    <a href="../userprofile-page/userprofile.php" class="btn-nav">Profile</a>
                 </nav>
 
                 <div class="user-profile">
